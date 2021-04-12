@@ -63,7 +63,7 @@ openssl req -new -config "$WORKDIR/ipa-httpd.cnf" -keyout "$WORKDIR/req.key" -ou
 systemctl stop httpd
 
 # get a new cert
-letsencrypt certonly --standalone --csr "$WORKDIR/req.csr" --email "$EMAIL" --agree-tos --cert-path "$WORKDIR/cert.pem" --chain-path "$WORKDIR/chain.pem" --fullchain-path "$WORKDIR/fullchain.pem"
+letsencrypt certonly --manual --preferred-challenges dns --csr "$WORKDIR/req.csr" --email "$EMAIL" --agree-tos --cert-path "$WORKDIR/cert.pem" --chain-path "$WORKDIR/chain.pem" --fullchain-path "$WORKDIR/fullchain.pem"
 
 # replace the cert
 yes $DIRPASSWD "" | ipa-server-certinstall -w -d "$WORKDIR/req.key" "$WORKDIR/cert.pem"
