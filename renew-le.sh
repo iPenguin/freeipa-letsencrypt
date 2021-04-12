@@ -60,7 +60,7 @@ fi
 openssl req -new -config "$WORKDIR/ipa-httpd.cnf" -keyout "$WORKDIR/req.key" -out "$WORKDIR/req.csr"
 
 # httpd process prevents letsencrypt from working, stop it
-service httpd stop
+systemctl stop httpd
 
 # get a new cert
 letsencrypt certonly --standalone --csr "$WORKDIR/req.csr" --email "$EMAIL" --agree-tos --cert-path "$WORKDIR/cert.pem" --chain-path "$WORKDIR/chain.pem" --fullchain-path "$WORKDIR/fullchain.pem"
